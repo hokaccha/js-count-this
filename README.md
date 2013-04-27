@@ -10,8 +10,6 @@ $ npm install -g git://github.com/hokaccha/js-count-this.git
 
 ## Example
 
-### jQuery
-
 ```javascript
 // target.js
 
