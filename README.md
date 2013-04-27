@@ -2,6 +2,14 @@ JavaScriptのコード内のthisが代入されている変数名の数をカウ
 
 それだけだよ。
 
+## Install
+
+```
+$ npm install -g git://github.com/hokaccha/js-count-this.git
+```
+
+## Example
+
 ### jQuery
 
 ```
