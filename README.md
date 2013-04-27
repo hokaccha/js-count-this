@@ -12,38 +12,40 @@ $ npm install -g git://github.com/hokaccha/js-count-this.git
 
 ### jQuery
 
+```javascript
+// target.js
+
+foo.forEach(function() {
+  var self = this;
+});
+
+Foo.prototype.bar = function() {
+  var self = this;
+};
+
+var foo = this;
+foo.bar.baz[0] = this;
+
+bar = this;
+
+var baz;
+baz = this;
+
+var xxx = this.fuga.piyo
+  , hoge = this;
+
+let letSelf = this;
+const constSelf = this;
 ```
-$ count-this jquery-2.0.0.js
-target: 2
+
+```
+$ count-this target.js
 self: 2
-ret.prevObject: 1
-elements: 1
-jQuery.propFix[this.toLowerCase()]: 1
-event.delegateTarget: 1
-set: 1
-elem: 1
-anim: 1
-```
-
-### Node.js
-
-```
-$ count-this node/lib/*
-self: 82
-socket: 5
-parser: 4
-this._handle.owner: 2
-handle: 2
-list: 1cluster.workers[this.id]: 1
-handle.owner: 1
-ee.domain: 1
-src: 1
-er.domainEmitter: 1
-dest: 1
-socket._httpMessage: 1
-res: 1
-req: 1
-stream: 1
-source: 1
-b.domain: 1
+foo: 1
+foo.bar.baz[0]: 1
+bar: 1
+baz: 1
+hoge: 1
+letSelf: 1
+constSelf: 1
 ```
