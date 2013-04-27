@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+var countThis = require('../count-this');
+var fs = require('fs');
+var args = process.argv.slice(2);
+
+var str = args.map(function(arg) {
+  return fs.readFileSync(arg, 'utf8');
+}).join('\n');
+var result = countThis(str);
+
+Object.keys(result).sort(function(a, b) {
+  return result[b] - result[a];
+}).forEach(function(name) {
+  console.log('%s: %s', name, result[name]);
+});

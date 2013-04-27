@@ -1,0 +1,16 @@
+{
+  "name": "count-this",
+  "version": "0.0.1",
+  "description": "thisが代入されている変数名をカウントするよ",
+  "dependencies": {
+    "escodegen": "0.0.22",
+    "esprima": "1.0.2"
+  },
+  "scripts": {
+    "test": "node test/*.js"
+  },
+  "bin": {
+    "count-this": "./bin/count-this"
+  },
+  "license": "MIT"
+}
