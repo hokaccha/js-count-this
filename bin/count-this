@@ -2,15 +2,63 @@
 
 var countThis = require('../count-this');
 var fs = require('fs');
-var args = process.argv.slice(2);
 
-var str = args.map(function(arg) {
-  return fs.readFileSync(arg, 'utf8');
-}).join('\n');
-var result = countThis(str);
+/**
+ * $ count-this foo.js bar.js
+ */
+function readFromArgs(fn) {
+  var args = process.argv.slice(2);
 
-Object.keys(result).sort(function(a, b) {
-  return result[b] - result[a];
-}).forEach(function(name) {
-  console.log('%s: %s', name, result[name]);
-});
+  var str = '';
+  (function loop() {
+    var arg = args.shift();
+    if (!arg) return fn(null, str);
+
+    fs.readFile(arg, 'utf8', function(err, data) {
+      if (err) return fn(err);
+
+      str += '\n' + data;
+      loop();
+    });
+  })();
+}
+
+/**
+ * $ curl http://foo.com/bar.js | count-this
+ */
+function readFromStdin(fn) {
+  var str = '';
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8');
+
+  process.stdin.on('data', function(chunk) {
+    str += chunk;
+  });
+
+  process.stdin.on('end', function() {
+    fn(null, str);
+  });
+
+  process.stdin.on('error', function(err) {
+    fn(err);
+  });
+}
+
+function run(err, str) {
+  if (err) throw err;
+
+  var result = countThis(str);
+
+  Object.keys(result).sort(function(a, b) {
+    return result[b] - result[a];
+  }).forEach(function(name) {
+    console.log('%s: %s', name, result[name]);
+  });
+}
+
+if (process.stdin.isTTY) {
+  readFromArgs(run);
+}
+else {
+  readFromStdin(run);
+}
